@@ -1,0 +1,5 @@
+SITE_HOST=test.mim:8081
+DB_HOST=host.docker.internal
+DB_USER=root
+DB_NAME=test_mim
+DB_PASS=

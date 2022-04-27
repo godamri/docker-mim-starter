@@ -1,0 +1,94 @@
+FROM php:8.1.5-alpine
+
+#USER root
+
+RUN mkdir -p /var/www/app
+WORKDIR /var/www/app/
+
+RUN echo "UTC" > /etc/timezone
+
+#RUN apk add --no-cache \
+RUN apk add \
+    ssh \
+    sudo \
+    bash \
+    expect \
+    php8 \
+    php8-fpm \
+    php8-common \
+    php8-pdo \
+    php8-opcache \
+    php8-zip \
+    php8-phar \
+    php8-iconv \
+    php8-cli \
+    php8-curl \
+    php8-openssl \
+    php8-mbstring \
+    php8-fileinfo \
+    php8-json \
+    php8-xml \
+    php8-xmlwriter \
+    php8-simplexml \
+    php8-dom \
+    php8-pdo_sqlite \
+    php8-tokenizer \
+    php8-gd \
+    php8-pecl-redis \
+    php8-posix \
+    php8-mysqli \
+    zip \
+    unzip \
+    curl \
+    supervisor \
+    busybox-suid \
+    libpng-dev \
+    git \
+    nano \
+    nginx
+
+
+RUN set -ex \
+    && docker-php-ext-install pcntl pdo_pgsql pdo_mysql mysqli
+
+RUN \
+    curl -sfL https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
+    chmod +x /usr/bin/composer                                                                     && \
+    composer self-update --clean-backups 2.1.14
+
+COPY ./etc/mim-installer.sh /tmp
+RUN chmod +x /tmp/mim-installer.sh
+RUN /tmp/mim-installer.sh
+
+COPY ./appsrc /var/www/app/
+
+# Configure supervisor
+RUN mkdir -p /etc/supervisor.d/
+COPY ./config/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
+
+COPY ./config/php/www.conf /etc/php8/php-fpm.d/www.conf
+COPY ./config/php/php.ini /etc/php8/conf.d/custom.ini
+
+# Configure nginx
+COPY ./config/nginx/nginx.conf /etc/nginx/nginx.conf
+
+RUN mkdir -p /run/nginx/
+RUN touch /run/nginx/nginx.pid
+
+COPY . /var/www/app/
+
+# Make sure files/folders needed by the processes are accessable when they run under the nobody user
+RUN chown -R nobody.nobody /var/www/app && \
+    chown -R nobody.nobody /run && \
+    chown -R nobody.nobody /var/lib/nginx && \
+    chown -R nobody.nobody /var/log/nginx && \
+    chown -R nobody.nobody /var/lib/php8 && \
+    chown -R nobody.nobody /var/log/php8
+
+# Switch to use a non-root user from here on
+USER nobody
+
+EXPOSE 8080
+
+# Run app via supervisor
+CMD ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]

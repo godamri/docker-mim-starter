@@ -1,0 +1,24 @@
+# cli
+etc/bash/au.sh
+mim
+
+# core
+etc/cache/*
+!etc/cache/.gitkeep
+etc/cert/*
+!etc/cert/.gitkeep
+etc/config/development.php
+etc/config/production.php
+etc/config/test.php
+etc/log/access/*
+!etc/log/access/.gitkeep
+etc/log/error/*
+!etc/log/error/.gitkeep
+etc/temp/*
+!etc/temp/.gitkeep
+vendor
+
+# lib-cache
+etc/cache/lib-cache/*
+!etc/cache/lib-cache/.gitkeep
+.environment
