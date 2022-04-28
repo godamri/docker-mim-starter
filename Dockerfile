@@ -1,4 +1,6 @@
-FROM godamri/docker-mim-starter:0.0.1
+FROM godamri/docker-mim-starter:0.0.3
+
+USER root
 
 RUN mkdir -p /var/www/app
 WORKDIR /var/www/app/
@@ -14,17 +16,17 @@ RUN mkdir -p /etc/supervisor.d/
 COPY ./config/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 
 COPY ./config/php/www.conf /etc/php8/php-fpm.d/www.conf
-COPY ./config/php/php.ini /etc/php8/conf.d/custom.ini
+COPY ./config/php/php.ini /etc/php8/php-fpm.d/custom.ini
 
 # Configure nginx
 COPY ./config/nginx/nginx.conf /etc/nginx/nginx.conf
 
 COPY . /var/www/app/
 
-RUN chown -R nobody.nobody /var/www/app
+RUN chown -R petugas.petugas /var/www/app
 
 # Switch to use a non-root user from here on
-USER nobody
+USER petugas
 
 EXPOSE 8080
 

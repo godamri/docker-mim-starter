@@ -20,13 +20,13 @@ build-no-cache: ## Build the container without caching
 	docker build --no-cache -t $(APP_NAME) .
 
 run: ## Run container
-	docker run -i -t --rm --env-file ./appsrc/.environment -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
+	docker run -i -t --rm --env-file ./appsrc/.env -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
 
 run-dev: ## Run container dev volume
-	docker run -i -t --rm --env-file ./appsrc/.environment -v $(PWD)/appsrc:/var/www/app -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
+	docker run -i -t --rm --env-file ./appsrc/.env -v $(PWD)/etc/bash/.bash_history:/home/petugas/.ash_history -v $(PWD)/appsrc:/var/www/app -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
 
 root: ## Run container with root
-	docker run --workdir /root --user root -i -t --rm --env-file ./appsrc/.environment -v $(PWD)/appsrc:/var/www/app -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
+	docker run --workdir /root --user root -i -t --rm --env-file ./appsrc/.env -v $(PWD)/etc/bash:/home/petugas/bash_custom -v $(PWD)/appsrc:/var/www/app -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
 
 login: ## access container's terminal
 	docker exec -it $(APP_NAME) /bin/sh

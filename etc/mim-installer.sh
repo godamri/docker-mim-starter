@@ -34,3 +34,4 @@ VAR=$(expect -c '
 echo "$VAR"
 rm -rf /usr/bin/mim
 ln -sf /opt/mim/mim /usr/local/bin/mim
+chown -R petugas.petugas /opt/mim/etc/

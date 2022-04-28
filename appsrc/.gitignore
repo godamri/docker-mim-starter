@@ -3,6 +3,8 @@ etc/bash/au.sh
 mim
 
 # core
+modules/*
+!modules/.gitkeep
 etc/cache/*
 !etc/cache/.gitkeep
 etc/cert/*
@@ -17,8 +19,3 @@ etc/log/error/*
 etc/temp/*
 !etc/temp/.gitkeep
 vendor
-
-# lib-cache
-etc/cache/lib-cache/*
-!etc/cache/lib-cache/.gitkeep
-.environment

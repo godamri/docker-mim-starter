@@ -1,27 +1,23 @@
 <?php
 
 return [
-    'name' => 'TestMIm',
+    'name' => 'mimINIT',
     'version' => '0.0.1',
-    'host' => getenv('SITE_HOST'),
+    'host' => 'test.mim:8081',
     'timezone' => 'Asia/Jakarta',
-    'install' => '2022-04-27 15:08:47',
+    'install' => '2022-04-28 13:30:01',
     'secure' => FALSE,
     'shared' => '~',
-    '__gitignore' => [
-        'modules/*' => NULL,
-        '!modules/.gitkeep' => NULL
-    ],
     'libModel' => [
         'connections' => [
             'default' => [
                 'driver' => 'mysql',
                 'configs' => [
                     'main' => [
-                        'host' => getenv('DB_HOST'),
-                        'user' => getenv('DB_USER'),
-                        'dbname' => getenv('DB_NAME'),
-                        'passwd' => getenv('DB_PASS'),
+                        'host' => 'localhost',
+                        'user' => 'root',
+                        'dbname' => 'mim_init',
+                        'passwd' => ''
                     ]
                 ]
             ]
