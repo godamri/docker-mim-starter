@@ -19,3 +19,5 @@ etc/log/error/*
 etc/temp/*
 !etc/temp/.gitkeep
 vendor
+
+.env
