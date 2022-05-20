@@ -15,8 +15,8 @@ COPY ./appsrc /var/www/app/
 RUN mkdir -p /etc/supervisor.d/
 COPY ./config/supervisor/supervisord.conf /etc/supervisor/supervisord.conf
 
-COPY ./config/php/www.conf /etc/php8/php-fpm.d/www.conf
-COPY ./config/php/php.ini /etc/php8/php-fpm.d/custom.ini
+COPY ./config/php/www.conf /etc/php7/php-fpm.d/www.conf
+COPY ./config/php/php.ini /etc/php7/php-fpm.d/custom.ini
 
 # Configure nginx
 COPY ./config/nginx/nginx.conf /etc/nginx/nginx.conf
