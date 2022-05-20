@@ -1,4 +1,4 @@
-FROM godamri/docker-mim-starter:0.0.3
+FROM godamri/docker-mim-starter-php7:0.0.1
 
 USER root
 

@@ -3,7 +3,7 @@
 return [
     'name' => 'mimINIT',
     'version' => '0.0.1',
-    'host' => 'test.mim:8081',
+    'host' => getenv('SITE_HOST', 'localhost'),
     'timezone' => 'Asia/Jakarta',
     'install' => '2022-04-28 13:30:01',
     'secure' => FALSE,
