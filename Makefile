@@ -25,11 +25,9 @@ run: ## Run container
 run-dev: ## Run container dev volume
 	docker run -i -t --rm --env-file ./appsrc/.env -v $(PWD)/etc/bash/.bash_history:/home/petugas/.ash_history -v $(PWD)/appsrc:/var/www/app -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
 
-root: ## Run container with root
-	docker run --workdir /root --user root -i -t --rm --env-file ./appsrc/.env -v $(PWD)/etc/bash:/home/petugas/bash_custom -v $(PWD)/appsrc:/var/www/app -p $(PORT):$(DIST_PORT) --name="$(APP_NAME)" $(APP_NAME)
 
-login: ## access container's terminal
-	docker exec -it $(APP_NAME) /bin/sh
+rlogin: ## access container's terminal root user
+	docker exec -it -u 0 $(APP_NAME) /bin/sh
 
 up: build run ## Run container on port
 
